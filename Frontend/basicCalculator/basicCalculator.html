@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soumik Calculator</title>
+    <link rel="stylesheet" href="./basicCalculator.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+</head>
+<body>
+    <nav class="navbar">
+        <button class="back-button" onclick="history.back()">
+            <i id="back-btn" class="fa-solid fa-arrow-left fa-xl"></i>
+        </button>
+    <h1 class="h1">Wellcome to Soumik's Calculator</h1>
+        <button id="toggleTheme" class="toggle-btn">🌙</button>
+    </nav>
+    <div class="container">
+        <div class="calculator">
+            <form action="">
+                <div>
+                    <input type="text" name="display" value=""class="display" >
+                </div>
+                <div>
+                    <input type="button" value="AC"  onclick="display.value = ''">
+                    <input type="button" value="DE" onclick="display.value = display.value.toString().slice(0,-1)">
+                    <input type="button" value="." onclick="display.value += value">
+                    <input type="button" value="/" onclick="display.value += value">
+                </div>
+                <div>
+                    <input type="button" value="7" onclick="display.value += value">
+                    <input type="button" value="8" onclick="display.value += value">
+                    <input type="button" value="9" onclick="display.value += value">
+                    <input type="button" value="*" onclick="display.value += value">
+                </div>
+                <div>
+                    <input type="button" value="4" onclick="display.value += value">
+                    <input type="button" value="5" onclick="display.value += value">
+                    <input type="button" value="6" onclick="display.value += value">
+                    <input type="button" value="-" onclick="display.value += value">
+                </div>
+                <div>
+                    <input type="button" value="1" onclick="display.value += value">
+                    <input type="button" value="2" onclick="display.value += value">
+                    <input type="button" value="3" onclick="display.value += value">
+                    <input type="button" value="+" onclick="display.value += value">
+                </div>
+                <div>
+                    <input type="button" value="00" onclick="display.value += value">
+                    <input type="button" value="0" onclick="display.value += value">
+                    <input type="button" value="="onclick="display.value = eval(display.value)" class="equal">
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="app.js"></script>
+    <script>
+        if (toggleTheme) {
+    toggleTheme.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+
+        // Save theme preference
+        const isDarkMode = document.body.classList.contains("dark-mode");
+        toggleTheme.textContent = isDarkMode ? "☀️" : "🌙";
+        localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+    });
+
+    // Load theme preference on page load
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+        toggleTheme.textContent = "☀️";
+    }
+}
+    </script>
+</body>
+</html>
