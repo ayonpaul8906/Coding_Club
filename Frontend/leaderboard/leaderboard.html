@@ -65,6 +65,16 @@
       border-radius: 5px;
       margin: 5px 0;
       flex-wrap: wrap;
+  }
+  .leaderboard li:hover{
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+    background: #0ac1ef !important;
+  }
+.dark-mode .leaderboard li{
+  background-color: #444;
+}
+  .leaderboard li img {
     }
 
     .dark-mode .leaderboard li {
@@ -107,6 +117,12 @@
   <button id="scrollToTop" class="scroll-btn">
     <i class="fas fa-arrow-up fa-xl"></i>
   </button>
+  <div class="overlay" id="overlay">
+    <div class="card">
+      <button class="close-btn" onclick="closeCard()">X</button>
+      <h1 id="greeting"></h1>
+    </div>
+  </div>
   <header>
     <div class="logo-container">
       <img src="../images/codingclub.svg" alt="Logo">
