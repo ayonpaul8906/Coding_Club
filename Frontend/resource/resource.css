@@ -70,10 +70,13 @@ header {
   transform: scale(1.02);
 }
 
+h2 {
+  color: #0680c7 !important;
 h1,
 h2 {
   color: #333;
 }
+
 
 ul {
   list-style-type: none;

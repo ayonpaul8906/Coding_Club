@@ -23,7 +23,12 @@
 
 
 </head>
+<style>
+  .answer {
+    display: none;
+}
 
+</style>
 <body>
 
   <div id="loader">
@@ -44,12 +49,12 @@
 
   <header>
     <div class="logo-container">
-      <img src="images/codingclub.png" alt="logo">
+      <img src="images/codingclub.svg" alt="logo">
     </div>
     <h1 id="typingText"></h1>
     <nav>
       <nav id="navbar">
-        <ul>
+        <ul class="navItems">
           <li><a href="#home">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#events">Events</a></li>
@@ -430,6 +435,12 @@
         </div>
 
         <div data-aos="fade-up" class="project-card" data-title="Password Generator">
+          <img src="./images/bubble_game.jpg" alt="Project 6">
+          <h3>Bubble game</h3>
+          <p>Capture the bubble, and get points-> using HTML, CSS, and JavaScript.</p>
+          <a href="./bubble_game/bubble.html" class="view-demo">View Demo</a>
+        </div>
+        <div data-aos="fade-up" class="project-card" data-title="Password Generator">
           <img src="images/password.jpeg" alt="Project 6">
           <h3>Password Generator</h3>
           <p>A simple and interactive Password Generator using HTML, CSS, and JavaScript.</p>
@@ -600,40 +611,45 @@
 
 
     </div>
-
-    
-
-
-
-
   <!-- </section> -->
   </section>
 </div>
 
 <script>
-  function toggleAnswer(element) {
+function toggleAnswer(element) {
     let answer = element.nextElementSibling;
-    answer.style.display = answer.style.display === "display" ? "none " : "block ";
-  }
+    if (answer.style.display === "block") {
+        answer.style.display = "none";
+    } else {
+        answer.style.display = "block";
+    }
+}
 
-  function searchFAQ() {
-    let input = document.querySelector('.search-box').value.toLowerCase();
-    let questions = document.querySelectorAll('.faq-item');
-    let noResultsMessage = document.getElementById('no-results');
+
+function searchFAQ() {
+    let input = document.getElementById("searchBar").value.toLowerCase();
+    let questions = document.querySelectorAll(".faq-item");
+    let noResultsMessage = document.getElementById("no-results");
     let hasResults = false;
 
     questions.forEach(item => {
-      let text = item.textContent.toLowerCase();
-      if (text.includes(input)) {
-        item.style.display = "block";
-        hasResults = true;
-      } else {
-        item.style.display = "none";
-      }
+        let questionElement = item.querySelector(".question");
+        if (questionElement) {
+            let questionText = questionElement.textContent.toLowerCase();
+            if (questionText.includes(input)) {
+                item.style.display = "flex"; // Use "flex" to match existing layout
+                hasResults = true;
+            } else {
+                item.style.display = "none";
+            }
+        }
     });
 
+    // Show/hide the "No results found" message
     noResultsMessage.style.display = hasResults ? "none" : "block";
-  }
+}
+
+
 </script>
 
 
