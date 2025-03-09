@@ -21,18 +21,112 @@ html, body {
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(45deg, #0569dd, #003b6c);
 }
-.why-text {
-  max-width: 800px;
-  margin: 0 auto 20px auto;
+.why-choose-us {
   text-align: center;
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: black; /* Light mode */
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #f9f9f9, #e3e3e3); /* Light mode */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+.section-heading {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 15px;
+  position: relative;
+  display: inline-block;
+}
+
+.section-heading::after {
+  content: "";
+  width: 60px;
+  height: 4px;
+  background: #ff6b6b;
+  display: block;
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
+.why-text {
+  max-width: 800px;
+  margin: 0 auto 30px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #444;
+  line-height: 1.6;
+  padding: 10px;
+}
+
+.why-us-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.why-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.why-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.why-box i {
+  font-size: 2.5rem;
+  color: #ff6b6b;
+  margin-bottom: 10px;
+}
+
+.why-box h3 {
+  font-size: 1.5rem;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.why-box p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Dark Mode */
 @media (prefers-color-scheme: dark) {
+  .why-choose-us {
+    background: linear-gradient(135deg, #1e1e1e, #2c2c2c);
+    box-shadow: none;
+  }
+  
+  .section-heading {
+    color: #fff;
+  }
+
   .why-text {
-    color: #ddd; /* Dark mode adjustment */
+    color: #ccc;
+  }
+
+  .why-box {
+    background: #222;
+    box-shadow: 0 6px 12px rgba(255, 255, 255, 0.1);
+  }
+
+  .why-box:hover {
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+  }
+
+  .why-box h3 {
+    color: #f9f9f9;
+  }
+
+  .why-box p {
+    color: #bbb;
   }
 }
 
@@ -654,7 +748,9 @@ button:hover {
 .eventbttn button {
   margin-right: 10px;
 }
-
+.demo-hackathons{
+  max-width: 90%;
+}
 .demo-hackathons h2 {
   margin-bottom: 20px;
 }
@@ -1215,12 +1311,13 @@ button:hover {
 
   .search-container {
     text-align: center;
-    margin-bottom: 20px;
+    width: 90%;
+    margin-left: 40px !important;
   }
 
   #searchBar {
-    width: 80%;
-    max-width: 400px;
+    width: 69%;
+    /* max-width: 400px; */
     padding: 10px;
     font-size: 16px;
     border: 2px solid #ccc;
@@ -1234,7 +1331,6 @@ button:hover {
     gap: 20px;
     justify-content: center;
   }
-}
 
 #faq {
   padding: 50px;
