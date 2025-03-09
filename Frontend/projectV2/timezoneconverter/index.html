@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Time Zone Converter</title>
+    <title>Time Zone Converter with Live Clock</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -48,7 +48,6 @@
         border-radius: 8px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
       }
-
       input,
       select,
       button {
@@ -66,7 +65,8 @@
       button:hover {
         background-color: #52b7e0;
       }
-      .result {
+      .result,
+      .live-clock {
         margin-top: 20px;
         font-size: 20px;
         font-weight: bold;
@@ -76,7 +76,7 @@
   <body>
     <header>
       <h1>Time Zone Converter</h1>
-      <!-- When in dark mode (default) the button displays 'Light' -->
+      <!-- Toggle button text indicates the next mode -->
       <button class="toggle-dark" onclick="toggleDarkMode()" id="toggleBtn">
         Light
       </button>
@@ -87,7 +87,7 @@
       <input type="time" id="time" />
       <br />
       <label for="timezone">Convert to:</label>
-      <select id="timezone">
+      <select id="timezone" onchange="updateLiveClock()">
         <option value="America/New_York">New York (EST)</option>
         <option value="Europe/London">London (GMT)</option>
         <option value="Asia/Tokyo">Tokyo (JST)</option>
@@ -96,6 +96,8 @@
       <br />
       <button onclick="convertTime()">Convert</button>
       <div class="result" id="result"></div>
+      <!-- Live Clock Display -->
+      <div class="live-clock" id="liveClock">Live Time: --:--:--</div>
     </div>
 
     <script>
@@ -136,6 +138,24 @@
           toggleBtn.innerText = "Dark";
         }
       }
+
+      function updateLiveClock() {
+        const targetZone = "IST";
+        let now = new Date();
+        let options = {
+          timeZone: targetZone,
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        };
+        let liveTime = new Intl.DateTimeFormat([], options).format(now);
+        document.getElementById(
+          "liveClock"
+        ).innerText = `Live Time (${targetZone}): ${liveTime}`;
+      }
+
+      setInterval(updateLiveClock, 1000);
     </script>
   </body>
 </html>
