@@ -80,6 +80,7 @@ button:hover {
 /* 🔹 Navbar */
 .navbar {
   position: absolute;
+  right: 2px;
   top: 0;
   width: 100%;
   background: #007bff;
