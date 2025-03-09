@@ -47,7 +47,6 @@
       }
       .header {
         display: flex;
-
         justify-content: space-between;
         align-items: center;
         padding: 10px 20px;
@@ -71,6 +70,8 @@
         <option value="love">Love</option>
         <option value="mystery">Mystery</option>
         <option value="inspiration">Inspiration</option>
+        <option value="friendship">Friendship</option>
+        <option value="adventure">Adventure</option>
       </select>
       <button onclick="generatePoem()">Generate Poem</button>
       <div id="poem" class="poem-box"></div>
@@ -83,18 +84,32 @@
         nature: [
           "The whispering winds call my name,\nThrough golden fields, they dance and tame.",
           "A river sings its gentle tune,\nReflecting light of silver moon.",
+          "Mountains stand with silent grace,\nA timeless watch in nature's embrace.",
         ],
         love: [
           "Your eyes like stars in endless space,\nA gentle touch, a warm embrace.",
           "A heart that beats in time with mine,\nOur souls entwined in love divine.",
+          "Love’s whisper echoes through the night,\nA melody both soft and bright.",
         ],
         mystery: [
           "Shadows dance on ancient walls,\nEchoes lost in silent halls.",
           "A hidden path, a secret door,\nWhat lies beyond, forevermore?",
+          "Fog veils the midnight street,\nFootsteps vanish in silent retreat.",
         ],
         inspiration: [
           "Rise like the sun and chase the day,\nLet no shadow block your way.",
           "Dreams are sparks of fire bright,\nGuiding souls into the night.",
+          "With every fall, we rise anew,\nThe world awaits what we will do.",
+        ],
+        friendship: [
+          "A friend’s embrace, a heart so true,\nIn darkest times, they pull you through.",
+          "Through laughter, tears, both thick and thin,\nA friend’s warm love will always win.",
+          "Side by side, we walk the years,\nThrough every joy and all the tears.",
+        ],
+        adventure: [
+          "Across the seas and through the skies,\nAdventure calls where mystery lies.",
+          "The road ahead is vast and wide,\nLet courage be your trusted guide.",
+          "Mountains high and valleys deep,\nA traveler’s soul will never sleep.",
         ],
       };
 
