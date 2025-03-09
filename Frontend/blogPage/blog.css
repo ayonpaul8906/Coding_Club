@@ -1060,6 +1060,7 @@ h2 {
   /* background-color: #121212; */
   color: #fff;
   background: #333;
+  max-width: 90%;
   /* color: white; */
   border: 1px solid #444;
   box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
@@ -1083,6 +1084,8 @@ h2 {
 
 .blog-section {
   padding: 50px 0;
+  width: 90%;
+  margin-left: 15px;
 }
 
 .blog-title {
