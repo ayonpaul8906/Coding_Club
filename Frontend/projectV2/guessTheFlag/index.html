@@ -13,9 +13,10 @@
         margin: 0;
         padding: 0;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 100vh;
+        min-height: 100vh;
       }
 
       /* Game Container */
@@ -26,6 +27,7 @@
         text-align: center;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         max-width: 400px;
+        margin-bottom: 20px;
       }
 
       /* Header */
@@ -86,10 +88,40 @@
         cursor: pointer;
         font-size: 1em;
         transition: background 0.3s;
+        margin: 5px;
       }
 
       button:hover {
         background: #4351b5;
+      }
+
+      /* Leaderboard Container */
+      .leaderboard-container {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 15px 25px;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 300px;
+        width: 100%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .leaderboard-container h2 {
+        margin-top: 0;
+      }
+
+      .leaderboard-container ul {
+        list-style: none;
+        padding: 0;
+        margin: 10px 0 0 0;
+      }
+
+      .leaderboard-container li {
+        background: #fff;
+        color: #333;
+        margin: 5px 0;
+        padding: 5px 10px;
+        border-radius: 5px;
       }
     </style>
   </head>
@@ -104,7 +136,15 @@
       <p>Score: <span id="score">0</span></p>
       <p>Time left: <span id="timer">10</span> sec</p>
       <button onclick="startGame()">Start Game</button>
+      <button onclick="endGame()">End Game</button>
     </div>
+
+    <!-- Leaderboard Container -->
+    <div class="leaderboard-container">
+      <h2>Leaderboard</h2>
+      <ul id="leaderboardList"></ul>
+    </div>
+
     <script>
       // Array of flag objects
       const flags = [
@@ -120,6 +160,7 @@
       let timer = 10;
       let intervalId;
       let currentFlag;
+      let gameActive = false;
 
       // DOM Elements
       const flagImage = document.getElementById("flag");
@@ -127,17 +168,29 @@
       const messageEl = document.getElementById("message");
       const scoreEl = document.getElementById("score");
       const timerEl = document.getElementById("timer");
+      const leaderboardList = document.getElementById("leaderboardList");
 
       // Start the game
       function startGame() {
         score = 0;
         scoreEl.textContent = score;
         messageEl.textContent = "";
+        gameActive = true;
         nextQuestion();
       }
 
-      // Setup next question
+      // End the game, update leaderboard, and display final score
+      function endGame() {
+        gameActive = false;
+        clearInterval(intervalId);
+        messageEl.textContent = `Game Over! Your final score is ${score}.`;
+        updateLeaderboard(score);
+        displayLeaderboard();
+      }
+
+      // Setup next question if game is active
       function nextQuestion() {
+        if (!gameActive) return;
         clearInterval(intervalId);
         timer = 10;
         timerEl.textContent = timer;
@@ -211,6 +264,30 @@
       hintBtn.textContent = "Show Hint";
       hintBtn.onclick = showHint;
       document.querySelector(".game-container").appendChild(hintBtn);
+
+      // Update leaderboard stored in local storage
+      function updateLeaderboard(newScore) {
+        let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+        leaderboard.push(newScore);
+        // Sort scores in descending order and keep top 5
+        leaderboard.sort((a, b) => b - a);
+        leaderboard = leaderboard.slice(0, 5);
+        localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+      }
+
+      // Display the leaderboard on the page
+      function displayLeaderboard() {
+        let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+        leaderboardList.innerHTML = "";
+        leaderboard.forEach((score, index) => {
+          const li = document.createElement("li");
+          li.textContent = `${index + 1}. ${score}`;
+          leaderboardList.appendChild(li);
+        });
+      }
+
+      // Display leaderboard on page load
+      window.onload = displayLeaderboard;
     </script>
   </body>
 </html>
