@@ -12,10 +12,12 @@
         background-color: #1e1e2e;
         color: #ffffff;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 100vh;
         margin: 0;
+        transition: background 0.3s, color 0.3s;
       }
       .game-container {
         background: rgba(255, 255, 255, 0.1);
@@ -51,7 +53,8 @@
         font-size: 22px;
         margin: 15px 0;
       }
-      #reset {
+      #reset,
+      #theme-toggle {
         background: red;
         color: white;
         border: none;
@@ -60,13 +63,49 @@
         cursor: pointer;
         border-radius: 5px;
         transition: 0.3s;
+        margin-top: 10px;
       }
       #reset:hover {
         background: darkred;
       }
+      #theme-toggle {
+        background: #008cba;
+      }
+      #theme-toggle:hover {
+        background: #005f7a;
+      }
+
+      /* Light Mode */
+      .light-mode {
+        background-color: #ffffff;
+        color: #000000;
+      }
+      .light-mode .game-container {
+        background: rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      }
+      .light-mode .choice {
+        border: 2px solid black;
+      }
+      .light-mode .choice:hover {
+        background: rgba(0, 0, 0, 0.2);
+      }
+      .light-mode #reset {
+        background: red;
+      }
+      .light-mode #reset:hover {
+        background: darkred;
+      }
+      .light-mode #theme-toggle {
+        background: #005f7a;
+      }
+      .light-mode #theme-toggle:hover {
+        background: #008cba;
+      }
     </style>
   </head>
   <body>
+    <button id="theme-toggle" style="margin-bottom: 67px">Dark Mode</button>
     <div class="game-container">
       <h1>Rock Paper Scissors</h1>
       <div class="score-board">
@@ -91,6 +130,7 @@
       const playerScoreText = document.getElementById("player-score");
       const aiScoreText = document.getElementById("ai-score");
       const resetBtn = document.getElementById("reset");
+      const themeToggleBtn = document.getElementById("theme-toggle");
 
       let playerScore = 0;
       let aiScore = 0;
@@ -135,6 +175,28 @@
         aiScoreText.textContent = aiScore;
         aiChoiceText.textContent = "?";
         resultText.textContent = "Choose your move!";
+      });
+
+      // Dark Mode Toggle
+      themeToggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light-mode");
+
+        // Save theme preference
+        if (document.body.classList.contains("light-mode")) {
+          localStorage.setItem("theme", "light");
+          themeToggleBtn.textContent = "Toggle Dark Mode";
+        } else {
+          localStorage.setItem("theme", "dark");
+          themeToggleBtn.textContent = "Toggle Light Mode";
+        }
+      });
+
+      // Load saved theme preference
+      window.addEventListener("load", () => {
+        if (localStorage.getItem("theme") === "light") {
+          document.body.classList.add("light-mode");
+          themeToggleBtn.textContent = "Toggle Dark Mode";
+        }
       });
     </script>
   </body>
