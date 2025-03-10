@@ -101,6 +101,8 @@
       <input type="number" id="diskCount" value="3" min="3" max="8" />
       <button id="resetButton">Reset</button>
       <button id="solveButton">Solve</button>
+      <button id="undoButton">Undo</button>
+      <button id="redoButton">Redo</button>
       <span style="margin-left: 15px"
         >Moves: <span id="moveCount">0</span></span
       >
@@ -127,11 +129,15 @@
       let moveCount = 0;
       let diskCount = parseInt(document.getElementById("diskCount").value);
       let isSolving = false;
+      let undoStack = [];
+      let redoStack = [];
 
       const towerElements = document.querySelectorAll(".tower");
       const moveCountEl = document.getElementById("moveCount");
       const resetButton = document.getElementById("resetButton");
       const solveButton = document.getElementById("solveButton");
+      const undoButton = document.getElementById("undoButton");
+      const redoButton = document.getElementById("redoButton");
       const diskCountInput = document.getElementById("diskCount");
 
       // Initialize game
@@ -141,6 +147,8 @@
         updateMoveCount();
         selectedTower = null;
         isSolving = false;
+        undoStack = [];
+        redoStack = [];
 
         diskCount = parseInt(diskCountInput.value);
         // Create disks on tower 0 (largest at bottom)
@@ -155,15 +163,14 @@
         towerElements.forEach((towerEl) => {
           const index = parseInt(towerEl.getAttribute("data-index"));
           const container = towerEl.querySelector(".disk-container");
-          container.innerHTML = ""; // clear previous
+          container.innerHTML = ""; // clear previous disks
           towers[index].forEach((disk, pos) => {
             const diskEl = document.createElement("div");
             diskEl.classList.add("disk");
-            // If this disk is the top disk and tower is selected, mark it.
+            // Highlight the top disk if its tower is currently selected
             if (selectedTower === index && pos === towers[index].length - 1) {
               diskEl.classList.add("selected");
             }
-            // Set width proportional to disk size
             diskEl.style.width = disk * (100 / (diskCount + 1)) + "%";
             diskEl.textContent = disk;
             container.appendChild(diskEl);
@@ -188,24 +195,26 @@
       function towerClick(e) {
         if (isSolving) return; // disable manual moves during auto-solve
         const towerIndex = parseInt(e.currentTarget.getAttribute("data-index"));
-        // If no tower selected yet, choose the top disk from this tower (if exists)
         if (selectedTower === null) {
           if (towers[towerIndex].length === 0) return; // nothing to select
           selectedTower = towerIndex;
           renderTowers();
         } else {
-          // If clicking the same tower, deselect
+          // If clicking the same tower, deselect it
           if (selectedTower === towerIndex) {
             selectedTower = null;
             renderTowers();
             return;
           }
-          // Otherwise try moving the disk
+          // Otherwise, attempt to move the disk
           if (isValidMove(selectedTower, towerIndex)) {
             const disk = towers[selectedTower].pop();
             towers[towerIndex].push(disk);
             moveCount++;
             updateMoveCount();
+            // Save the move for undo and clear any redo history
+            undoStack.push({ from: selectedTower, to: towerIndex });
+            redoStack = [];
             checkWin();
           }
           selectedTower = null;
@@ -213,7 +222,7 @@
         }
       }
 
-      // Check win condition: All disks on tower 2 (last tower)
+      // Check win condition: All disks on tower 2
       function checkWin() {
         if (towers[2].length === diskCount) {
           setTimeout(() => {
@@ -246,7 +255,6 @@
         }
         isSolving = true;
         const move = moves.shift();
-        // Animate the move
         if (isValidMove(move.from, move.to)) {
           const disk = towers[move.from].pop();
           towers[move.to].push(disk);
@@ -259,18 +267,51 @@
         }, 500);
       }
 
+      // Undo the last move
+      function undoMove() {
+        if (isSolving) return;
+        if (undoStack.length === 0) return;
+        const lastMove = undoStack.pop();
+        // Reverse the move: move the top disk from destination back to source
+        if (towers[lastMove.to].length === 0) return;
+        const disk = towers[lastMove.to].pop();
+        towers[lastMove.from].push(disk);
+        moveCount--;
+        updateMoveCount();
+        renderTowers();
+        // Save the undone move for redo
+        redoStack.push(lastMove);
+      }
+
+      // Redo the last undone move
+      function redoMove() {
+        if (isSolving) return;
+        if (redoStack.length === 0) return;
+        const move = redoStack.pop();
+        if (!isValidMove(move.from, move.to)) return;
+        const disk = towers[move.from].pop();
+        towers[move.to].push(disk);
+        moveCount++;
+        updateMoveCount();
+        renderTowers();
+        // Add the redone move back to the undo stack
+        undoStack.push(move);
+      }
+
       // Attach click listeners to towers
       towerElements.forEach((towerEl) => {
         towerEl.addEventListener("click", towerClick);
       });
 
-      // Reset and solve button events
+      // Button event listeners
       resetButton.addEventListener("click", initGame);
       solveButton.addEventListener("click", () => {
         if (isSolving) return;
         const moves = autoSolve();
         animateMoves(moves);
       });
+      undoButton.addEventListener("click", undoMove);
+      redoButton.addEventListener("click", redoMove);
       diskCountInput.addEventListener("change", initGame);
 
       // Start the game
