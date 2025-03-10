@@ -80,7 +80,6 @@
           timeElapsed++;
           document.getElementById("timer").textContent = timeElapsed;
         }, 1000);
-        gameOver = false;
 
         let difficulty = document.getElementById("difficulty").value;
         let rows, cols;
@@ -96,6 +95,7 @@
         }
         totalCells = rows * cols;
         revealedCells = 0;
+        gameOver = false;
 
         grid = Array.from({ length: rows }, () => Array(cols).fill(0));
         let minePositions = new Set();
@@ -148,18 +148,14 @@
           cellElement.classList.contains("flag")
         )
           return;
-
         if (grid[r][c] === -1) {
           cellElement.classList.add("mine");
+          revealAllMines();
           alert("Game Over!");
           clearInterval(timer);
           gameOver = true;
-          document
-            .querySelectorAll(".cell")
-            .forEach((cell) => (cell.onclick = null));
           return;
         }
-
         cellElement.classList.add("revealed");
         cellElement.textContent = grid[r][c] || "";
         revealedCells++;
@@ -188,8 +184,18 @@
         checkWin();
       }
 
+      function revealAllMines() {
+        document.querySelectorAll(".cell").forEach((cell) => {
+          let r = cell.dataset.row,
+            c = cell.dataset.col;
+          if (grid[r][c] === -1) {
+            cell.classList.add("mine");
+          }
+        });
+      }
+
       function toggleFlag(cellElement) {
-        if (!gameOver && !cellElement.classList.contains("revealed")) {
+        if (!cellElement.classList.contains("revealed") && !gameOver) {
           cellElement.classList.toggle("flag");
           cellElement.textContent = cellElement.classList.contains("flag")
             ? "🚩"
