@@ -29,6 +29,8 @@
         border-radius: 10px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
         margin: auto;
+<<<<<<< HEAD
+=======
         transition: background 0.3s, color 0.3s;
       }
       select,
@@ -68,6 +70,7 @@
         background: black;
 =======
         margin: auto;
+>>>>>>> upstream/main
         background: #888;
         padding: 20px;
         border-radius: 10px;
@@ -97,15 +100,30 @@
         border-radius: 5px;
         display: flex;
         justify-content: space-between;
+<<<<<<< HEAD
+        align-items: center;
+=======
+>>>>>>> upstream/main
         color: black;
       }
-      .delete-btn {
+      .button-group {
+        display: flex;
+        gap: 5px;
+      }
+      .delete-btn,
+      .complete-btn {
         background: red;
         color: white;
         border: none;
         padding: 5px;
         cursor: pointer;
       }
+<<<<<<< HEAD
+      .complete-btn {
+        background: green;
+      }
+=======
+>>>>>>> upstream/main
       .dark-mode {
         background-color: #1e1e1e;
         color: white;
@@ -113,11 +131,29 @@
       .container.dark-mode {
         background: #444;
       }
+<<<<<<< HEAD
+      .progress-tracker {
+        margin-top: 20px;
+        text-align: left;
+      }
+      .progress-bar {
+        width: 100%;
+        background: #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .progress-bar div {
+        height: 20px;
+        background: green;
+        width: 0%;
+        transition: width 0.3s;
+=======
       .input-section input,
       .input-section select,
       .input-section button {
         background: white;
         color: black;
+>>>>>>> upstream/main
       }
       .toggle-btn {
         background: #444;
@@ -127,6 +163,9 @@
         cursor: pointer;
         margin-top: 10px;
         border-radius: 5px;
+<<<<<<< HEAD
+=======
+>>>>>>> upstream/main
 >>>>>>> upstream/main
       }
     </style>
@@ -212,7 +251,13 @@
         document.body.classList.toggle("dark-mode");
 =======
       <h1>Workout Planner</h1>
+<<<<<<< HEAD
+      <button class="toggle-btn" onclick="toggleDarkMode()">
+        Switch to Dark Mode
+      </button>
+=======
       <button class="toggle-btn" onclick="toggleDarkMode()">Dark Mode</button>
+>>>>>>> upstream/main
       <div class="input-section">
         <input type="text" id="workout-name" placeholder="Workout Name" />
         <input
@@ -231,11 +276,20 @@
         <h2>Your Workouts</h2>
         <ul id="workouts"></ul>
       </div>
+      <div class="progress-tracker">
+        <h2>Progress Tracker</h2>
+        <div class="progress-bar"><div id="progress"></div></div>
+        <p id="progress-text">0% completed</p>
+      </div>
     </div>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         loadWorkouts();
         checkDarkMode();
+<<<<<<< HEAD
+        updateProgress();
+=======
+>>>>>>> upstream/main
       });
 
       function toggleDarkMode() {
@@ -249,6 +303,73 @@
           localStorage.setItem("darkMode", "disabled");
           button.textContent = "Switch to Dark Mode";
         }
+<<<<<<< HEAD
+
+        let workout = { name, duration, type, completed: false };
+        let workouts = JSON.parse(localStorage.getItem("workouts")) || [];
+        workouts.push(workout);
+        localStorage.setItem("workouts", JSON.stringify(workouts));
+
+        displayWorkouts();
+        updateProgress();
+      }
+
+      function displayWorkouts() {
+        let workouts = JSON.parse(localStorage.getItem("workouts")) || [];
+        let workoutList = document.getElementById("workouts");
+        workoutList.innerHTML = "";
+
+        workouts.forEach((workout, index) => {
+          let li = document.createElement("li");
+          li.innerHTML = `${workout.name} - ${workout.duration} mins (${workout.type})`;
+
+          let buttonGroup = document.createElement("div");
+          buttonGroup.classList.add("button-group");
+
+          let completeBtn = document.createElement("button");
+          completeBtn.classList.add("complete-btn");
+          completeBtn.innerText = "✔";
+          completeBtn.onclick = () => completeWorkout(index);
+
+          let deleteBtn = document.createElement("button");
+          deleteBtn.classList.add("delete-btn");
+          deleteBtn.innerText = "X";
+          deleteBtn.onclick = () => deleteWorkout(index);
+
+          buttonGroup.appendChild(deleteBtn);
+          buttonGroup.appendChild(completeBtn);
+          li.appendChild(buttonGroup);
+
+          workoutList.appendChild(li);
+        });
+      }
+
+      function completeWorkout(index) {
+        let workouts = JSON.parse(localStorage.getItem("workouts")) || [];
+        workouts[index].completed = true;
+        localStorage.setItem("workouts", JSON.stringify(workouts));
+        updateProgress();
+        displayWorkouts();
+      }
+
+      function deleteWorkout(index) {
+        let workouts = JSON.parse(localStorage.getItem("workouts")) || [];
+        workouts.splice(index, 1);
+        localStorage.setItem("workouts", JSON.stringify(workouts));
+        displayWorkouts();
+        updateProgress();
+      }
+
+      function updateProgress() {
+        let workouts = JSON.parse(localStorage.getItem("workouts")) || [];
+        let totalWorkouts = workouts.length;
+        let completedWorkouts = workouts.filter((w) => w.completed).length;
+        let progress =
+          totalWorkouts > 0 ? (completedWorkouts / totalWorkouts) * 100 : 0;
+        document.getElementById("progress").style.width = progress + "%";
+        document.getElementById("progress-text").innerText =
+          Math.round(progress) + "% completed";
+=======
       }
 
       function checkDarkMode() {
@@ -263,6 +384,7 @@
           document.querySelector(".container").classList.remove("dark-mode");
           button.textContent = "Switch to Dark Mode";
         }
+>>>>>>> upstream/main
 >>>>>>> upstream/main
       }
     </script>
