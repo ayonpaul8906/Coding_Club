@@ -317,6 +317,7 @@ header {
     justify-content: center;
     align-items: center;
     height: 5rem;
+    margin-left: 20px;
     width: 15%;
     position: absolute;
     z-index: 0;
