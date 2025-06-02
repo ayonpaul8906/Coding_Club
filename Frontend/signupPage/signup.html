@@ -1,1 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup</title>
+    <link rel="stylesheet" href="./signup.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../lib/wow/customcursor.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <button
+        class="back-button"
+        onclick="history.back()"
+      >
+        <i class="fa-solid fa-arrow-left fa-xl"></i>
+      </button>
+      <button id="toggleTheme" class="toggle-btn">🌙</button>
+    </nav>
+
+    <div class="signup-wrapper">
+      <h2 class="signup-title">Sign Up</h2>
+
+      <!-- Profile Photo Section -->
+      <div class="profile-photo-container">
+        <label for="signup-profile-photo">
+          <div class="profile-photo-wrapper">
+            <span class="profile-text" id="profile-text">Profile Photo</span>
+            <img id="profile-preview" />
+            <i class="fa fa-camera upload-icon"></i>
+          </div>
+        </label>
+        <input
+          type="file"
+          id="signup-profile-photo"
+          accept="image/*"
+          onchange="previewProfilePhoto(event)"
+        />
+      </div>
+
+      <input
+        type="text"
+        class="signup-input"
+        id="signup-name"
+        placeholder="Full Name"
+      />
+      <input
+        type="email"
+        class="signup-input"
+        id="signup-email"
+        placeholder="Enter Email"
+      />
+      <div class="password-container">
+        <input
+          type="password"
+          class="signup-input"
+          id="signup-password"
+          placeholder="Enter Password"
+        />
+        <i class="fa-solid fa-eye" id="togglePassword"></i>
+      </div>
+
+      <input
+        type="text"
+        class="signup-input"
+        id="signup-degree"
+        placeholder="Degree"
+      />
+      <input
+        type="text"
+        class="signup-input"
+        id="signup-skills"
+        placeholder="Skills (comma separated)"
+      />
+      <input
+        type="tel"
+        class="signup-input"
+        id="signup-phone"
+        placeholder="Phone Number"
+        maxlength="10" required oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,10);"
+      />
+      <input
+        type="text"
+        class="signup-input"
+        id="signup-address"
+        placeholder="Address"
+      />
+
+      <button class="signup-button" onclick="signup()">Sign Up</button>
+
+      <p class="signup-text">
+        Already have an account?
+        <a href="../AllLoginPage/loginPage/login.html" class="signup-link"
+          >Login</a
+        >
+      </p>
+      <p id="signup-message" class="signup-message"></p>
+    </div>
+    <footer class="footer">
+      <div class="wrapper">
+        <div class="newsletter">
+          <h3>Subscribe to our Newsletter</h3>
+          <form id="subscribeForm">
+            <input type="email" id="emailInput" placeholder="Enter your email" required />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+  
+  
+        <div class="quick-contact">
+          <h3>Quick Links</h3>
+          <ul>
+            <li class="sec-nav"><a href="#home">Home</a></li>
+            <li class="sec-nav"><a href="#about">About</a></li>
+            <li class="sec-nav"><a href="#events">Events</a></li>
+            <li class="sec-nav"><a href="#projects">Projects</a></li>
+            <li class="sec-nav"><a href="blogPage/blog.html">Blogs</a></li>
+            <li class="sec-nav"><a href="#contact">Contact</a></li>
+            <li class="sec-nav"><a href="resource/resource.html">Resources</a></li>
+            <li class="sec-nav"><a href="#faq">FAQ</a></li>
+            <li class="sec-nav"><a href="#feedback">Feedback</a></li>
+          </ul>
+        </div>
+        <div class="quick-contact">
+          <h3>Contact Us</h3>
+          <p>📍 123 Street, City, Country</p>
+          <p><i class="fa-solid fa-earth-americas"></i>&nbsp;&nbsp;&nbsp;yourwebsite.com</p>
+          <p>📞 +123 456 7890</p>
+        </div>
+  
+        <div class="social-sharing">
+          <h3>Share Our Blog</h3>
+          <a href="#" id="facebookShare" class="social-icon">Facebook</a>
+          <a href="#" id="twitterShare" class="social-icon">Twitter</a>
+          <a href="#" id="linkedinShare" class="social-icon">LinkedIn</a>
+          <a href="#" id="whatsappShare" class="social-icon">Instagram</a>
+  
+        </div>
+      </div>
+  
+      <div class="privacy">
+        <a href="privacyPage/privacy.html">Privacy Policy</a> |
+        <a href="termsPage/terms.html">Terms & Conditions</a>
+      </div>
+  
+      <div class="copyright">© 2025 Coding Club. All rights reserved.</div>
+    </footer>
+    <script src="../mainPage/script.js"></script>
+
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+
+    <script src="../lib/wow/customcursor.js"></script>
+  </body>
+</html>
 
